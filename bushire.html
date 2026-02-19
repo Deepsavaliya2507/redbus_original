@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Hire - Rent Buses Online - RedBus Clone</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="https://st.redbus.in/Images/rdc/rdc-redbus-logo.svg" type="image/x-icon">
+    <style>
+        .hire-hero {
+            height: 500px;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80&w=2071&auto=format&fit=crop') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .hire-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hire-tabs {
+            display: flex;
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hire-tab {
+            padding: 1rem 2rem;
+            color: #3e3e52;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .hire-tab.active {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .hire-tab:hover:not(.active) {
+            background: #f4f4f4;
+        }
+
+        .usps {
+            display: flex;
+            justify-content: space-around;
+            padding: 4rem 10%;
+            background: #fff;
+            text-align: center;
+        }
+
+        .usp-box i {
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+
+        .usp-box h3 {
+            margin-bottom: 0.5rem;
+            color: #3e3e52;
+        }
+
+        .vehicles {
+            padding: 4rem 10%;
+            background: #f9f9f9;
+        }
+
+        .vehicles h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #3e3e52;
+        }
+
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .vehicle-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            height: 100%;
+        }
+
+        .vehicle-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .vehicle-card h4 {
+            padding: 1rem;
+            color: #3e3e52;
+        }
+
+        .rental-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 800px;
+            margin: -80px auto 0;
+            /* Overlap hero */
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+        }
+
+        .rental-form input {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .hire-btn {
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Reuse Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html"><img src="https://st.redbus.in/Images/rdc/rdc-redbus-logo.svg" alt="redBus"></a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Bus Tickets</a>
+                <a href="bushire.html" class="active">Cab Rental</a>
+                <a href="redrail.html">Train Tickets</a>
+            </div>
+            <div class="nav-right">
+                <div class="nav-item-dropdown">
+                    <div style="display: flex; align-items: center; gap: 5px;">
+                        <i class="fa-regular fa-user"></i> Account <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="cancel_ticket.html">Cancel Ticket</a>
+                        <a href="change_date.html">Change Travel Date</a>
+                        <a href="show_ticket.html">Show My Ticket</a>
+                        <a href="email_sms.html">Email/SMS</a>
+                        <div class="divider"></div>
+                        <a href="login.html">Login/Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hire-hero">
+        <div class="hire-tabs">
+            <div class="hire-tab active" onclick="switchTab('outstation')">Outstation</div>
+            <div class="hire-tab" onclick="switchTab('local')">Local</div>
+            <div class="hire-tab" onclick="switchTab('airport')">Airport</div>
+        </div>
+        <h1 id="hero-title">Bus Hire for every occasion</h1>
+        <p id="hero-subtitle">Rent Buses, Tempo Travellers & Cars</p>
+    </div>
+
+    <!-- Outstation Form -->
+    <div id="outstation-form" class="rental-form">
+        <input type="text" placeholder="Pick-up Location">
+        <input type="text" placeholder="Destination">
+        <input type="datetime-local">
+        <button class="hire-btn">HIRE NOW</button>
+    </div>
+
+    <!-- Local Form -->
+    <div id="local-form" class="rental-form" style="display: none;">
+        <input type="text" placeholder="Pick-up City">
+        <select style="flex: 1; padding: 1rem; border: 1px solid #ddd; border-radius: 4px;">
+            <option value="">Select Package</option>
+            <option value="4hrs">4 Hrs / 40 Km</option>
+            <option value="8hrs">8 Hrs / 80 Km</option>
+            <option value="12hrs">12 Hrs / 120 Km</option>
+        </select>
+        <input type="date">
+        <button class="hire-btn">HIRE NOW</button>
+    </div>
+
+    <!-- Airport Form -->
+    <div id="airport-form" class="rental-form" style="display: none;">
+        <div class="radio-group">
+            <label class="radio-label">
+                <input type="radio" name="airport-type" checked>
+                <span>Drop to Airport</span>
+            </label>
+            <label class="radio-label">
+                <input type="radio" name="airport-type">
+                <span>Pickup from Airport</span>
+            </label>
+        </div>
+        <input type="text" placeholder="Enter Airport Name">
+        <input type="datetime-local">
+        <button class="hire-btn">HIRE NOW</button>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            // Update Tab Styles
+            document.querySelectorAll('.hire-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Hide all forms
+            document.getElementById('outstation-form').style.display = 'none';
+            document.getElementById('local-form').style.display = 'none';
+            document.getElementById('airport-form').style.display = 'none';
+
+            // Show selected form
+            document.getElementById(tabName + '-form').style.display = 'flex';
+
+            // Optional: Update Hero Text based on tab
+            const titles = {
+                'outstation': 'Bus Hire for Outstation Trips',
+                'local': 'Rent a Cab for Local City Travel',
+                'airport': 'Airport Transfers Made Easy'
+            };
+            document.getElementById('hero-title').innerText = titles[tabName];
+        }
+    </script>
+
+    <!-- USPs -->
+    <div class="usps">
+        <div class="usp-box">
+            <i class="fa-solid fa-bus-simple"></i>
+            <h3>Broadest Choice</h3>
+            <p>Choose from a wide range of vehicles</p>
+        </div>
+        <div class="usp-box">
+            <i class="fa-solid fa-user-shield"></i>
+            <h3>Verified Drivers</h3>
+            <p>Experienced & Verified drivers strictly for you</p>
+        </div>
+        <div class="usp-box">
+            <i class="fa-solid fa-money-bill-wave"></i>
+            <h3>Transparent Pricing</h3>
+            <p>Inclusive of GST, Tolls & Taxes</p>
+        </div>
+    </div>
+
+    <!-- Vehicle Types -->
+    <section class="vehicles">
+        <h2>Vehicles Available</h2>
+        <div class="vehicle-grid">
+            <div class="vehicle-card">
+                <img src="https://st.redbus.in/Images/bushire/tempo.png" alt="Tempo Traveller">
+                <h4>Tempo Traveller (12+ Seater)</h4>
+            </div>
+            <div class="vehicle-card">
+                <img src="https://st.redbus.in/Images/bushire/bus.png" alt="Mini Bus">
+                <h4>Mini Bus (22+ Seater)</h4>
+            </div>
+            <div class="vehicle-card">
+                <img src="https://st.redbus.in/Images/bushire/sedan.png" alt="Sedan">
+                <h4>Sedan (4 Seater)</h4>
+            </div>
+            <div class="vehicle-card">
+                <img src="https://st.redbus.in/Images/bushire/suv.png" alt="SUV">
+                <h4>SUV (6 Seater)</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Reuse -->
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Redbus India Pvt Ltd. All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
